@@ -91,11 +91,6 @@ def step_impl(context):
     context.page.click_inregistrativa()
 
 
-@then('Then I should recive an error message')
-def step_impl(context):
-    context.page.signup_error()
-
-
 @then('I should see a red error tip')
 def step_impl(context):
     context.page.signup_error_tip()

@@ -70,7 +70,7 @@ class BasePage(WebDriver, PageObjects):
 
     def confirm_password(self, parola):
         # self.driver.find_element(By.XPATH, PageObjects.confirm_password_field_XPATH).send_keys(parola)
-        self.driver.find_element(By.CSS_SELECTOR, PageObjects.confirm_password_field_CSS)
+        self.driver.find_element(By.CSS_SELECTOR, PageObjects.confirm_password_field_CSS).send_keys(parola)
 
     def load_signup_page(self):
         self.driver.get(PageObjects.signup_page_url)

@@ -55,6 +55,12 @@ def step_impl(context):
     context.page.fill_signin_password(context.config.userdata['incorrect_password'])
 
 
+@when('I enter an incorrect "{email}" and "{password}"')
+def step_impl(context, email, password):
+    context.page.fill_signin_email(email)
+    context.page.fill_signin_password(password)
+
+
 @then('I should recive an error message')
 def step_impl(context):
     context.page.signin_error()
