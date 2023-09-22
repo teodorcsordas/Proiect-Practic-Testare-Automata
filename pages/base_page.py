@@ -1,6 +1,8 @@
 import time
 
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 from pages.page_objects import PageObjects
 from utils.wbdriver import WebDriver
@@ -12,6 +14,8 @@ class BasePage(WebDriver, PageObjects):
         self.driver.get(PageObjects.signin_page_url)
 
     def fill_signin_email(self, email):
+        wait = WebDriverWait(self.driver, 10)
+        wait.until(EC.visibility_of_element_located((By.XPATH, PageObjects.email_field_XPATH)))
         self.driver.find_element(By.XPATH, PageObjects.email_field_XPATH).send_keys(email)
 
     def fill_signin_password(self, password):
@@ -22,7 +26,11 @@ class BasePage(WebDriver, PageObjects):
         button.click()
 
     def accept_cookie(self):
-        self.driver.find_element(By.XPATH, PageObjects.cookie_permission_button_Xpath).click()
+        permission_button = self.driver.find_element(By.XPATH, PageObjects.cookie_permission_button_Xpath)
+        if permission_button.is_displayed():
+            permission_button.click()
+        else:
+            pass
 
     def confirmation_signin(self):
         assert self.driver.find_element(By.XPATH, PageObjects.confirmation_message_XPATH).is_displayed()
@@ -34,8 +42,7 @@ class BasePage(WebDriver, PageObjects):
         assert self.driver.find_element(By.XPATH, PageObjects.existing_email_error_XPATH).is_displayed()
 
     def error_tip(self):
-        assert self.driver.find_element(By.XPATH, PageObjects.error_tip_XPATH).is_displayed(), (f'An error tip should '
-                                                                                                f'be desplayed!')
+        assert self.driver.find_element(By.XPATH, PageObjects.error_tip_XPATH).is_displayed()
 
     def signup_error_tip(self):
         assert self.driver.find_element(By.XPATH, PageObjects.signup_error_tip_Xpath).is_displayed()
@@ -62,7 +69,8 @@ class BasePage(WebDriver, PageObjects):
         self.driver.find_element(By.XPATH, PageObjects.new_password_field_XPATH).send_keys(parola)
 
     def confirm_password(self, parola):
-        self.driver.find_element(By.XPATH, PageObjects.confirm_password_field_XPATH).send_keys(parola)
+        # self.driver.find_element(By.XPATH, PageObjects.confirm_password_field_XPATH).send_keys(parola)
+        self.driver.find_element(By.CSS_SELECTOR, PageObjects.confirm_password_field_CSS)
 
     def load_signup_page(self):
         self.driver.get(PageObjects.signup_page_url)

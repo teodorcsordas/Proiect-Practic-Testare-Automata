@@ -13,6 +13,7 @@ class PageObjects:
     new_email_field_XPATH = '//*[@id="email"]'
     new_password_field_XPATH = '//*[@id="password1"]'
     confirm_password_field_XPATH = '//*[@id="password2"]'
+    confirm_password_field_CSS = '#password2'
 
     # Buttons:
     autentificare_button_XPATH = "//button[@name='dispatch[auth.login]']"
